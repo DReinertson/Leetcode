@@ -9,35 +9,17 @@
 
 //Idea 3 : Loop through array backwards. This one doesn't work with the test case of [9], because there isn't a previous index. 
 var plusOne = function(digits) {
-    let plusOne;
     
-    for (let x = digits.length-1; x > 0; x--){
-        // console.log("x: ", x, 'digits[x]: ', digits[x]);
-        if(plusOne){
-            // console.log('is plusone');
-            if (digits[x] === 9){
-                digits[x] = 0;
-            } else{
-                digits[x] += 1;
-                break; 
-            }
-        }else{
-            // console.log('not plusone');
-            if (digits[x] === 9){
-                // console.log('equoal to 9');
-                digits[x] = 0;
-                plusOne = true;
-            } else{
-                // console.log('not 9');
-                digits[x] +=1;    
-                break;
-            }
-        
-            
+    for (let x = digits.length-1; x >= 0; x--){
+        if (digits[x] < 9){
+            digits[x] += 1;
+            return digits;
+        } else{
+            digits[x] = 0;
         }
     }
     
-    // console.log('digits: ', digits); 
+    digits.unshift('1');
     return digits;
     
 };
