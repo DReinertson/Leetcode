@@ -29,10 +29,8 @@ var groupAnagrams = function(strs) {
     }
     
     let arr = [...map1.values()];
-    
-    console.log(map1);
     return arr;
 };
 
-Runtime: 306 ms, faster than 12.75% of JavaScript online submissions for Group Anagrams.
-Memory Usage: 62.4 MB, less than 5.12% of JavaScript online submissions for Group Anagrams.
+Runtime: 200 ms, faster than 66.66% of JavaScript online submissions for Group Anagrams.
+Memory Usage: 55.2 MB, less than 18.47% of JavaScript online submissions for Group Anagrams.
