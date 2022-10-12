@@ -4,15 +4,16 @@
  */
 var longestConsecutive = function(nums) {
     
-    let map1 = new Map();
-    let pos = 0;
-    let counter = 1;
-    let val = 1;
-    let max = 1;
-    
     if (nums.length === 0){
-        return 0; 
+        return 0;
     }
+    
+    let map1 = new Map();
+    let max = 0;
+    let counter = 1;
+    let sorted = nums.sort((a,b) => a-b);
+    
+    // console.log('sorted: ', sorted);
     
     for (let x in nums){
         map1.set(nums[x], 1);
@@ -20,23 +21,21 @@ var longestConsecutive = function(nums) {
     
     // console.log(map1);
     
-    while (pos < nums.length){
-        // console.log('pos: ', pos);
-        // console.log('nums[pos]: ', nums[pos]);
-        // console.log('val: ', val);
-        // console.log('nums[pos]+val: ', nums[pos]+val);
+    for (let y = 0; y<sorted.length; y++){
+        // console.log('y: ', y);
         // console.log('counter: ', counter);
         // console.log('max: ', max);
-        if (map1.has(nums[pos]+val)){
+        // console.log("values: ", sorted[y], sorted[y+1]);
+        if (sorted[y] === sorted[y+1]){
+            continue;
+        }
+        else if (map1.has(sorted[y]+1)){
             counter++;
-            val++;
         } else{
-            pos++;
             if (counter > max){
                 max = counter;
             }
             counter = 1;
-            val = 1;
         }
     }
     
@@ -45,7 +44,7 @@ var longestConsecutive = function(nums) {
     }
     
     return max;
-    
 };
 
-Time Limit Exceeded
+Runtime: 290 ms, faster than 53.66% of JavaScript online submissions for Longest Consecutive Sequence.
+Memory Usage: 69.1 MB, less than 19.05% of JavaScript online submissions for Longest Consecutive Sequence.
