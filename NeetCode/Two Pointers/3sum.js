@@ -10,7 +10,7 @@
 //If nums[left-pointer] equals 0, you can stop the loops. Since the sum has to equal 0, it can't equal 0 if the left most pointer isn't negative. 
 var threeSum = function(nums) {
     
-    let finalArr = new Set();
+    let finalArr = [];
     //check length of array
     
     if (nums.length < 3){
@@ -26,8 +26,10 @@ var threeSum = function(nums) {
         let m = l+1;
         
         if (nums[l] === 0 && nums[m] > 0){
-            return Array.from(finalArr);
+            return finalArr;
         }
+        
+        
         
         for (let r = nums.length-1; r > m; r--){
             let arr = [nums[l], nums[m], nums[r]];
@@ -37,15 +39,15 @@ var threeSum = function(nums) {
             if (nums[l] + nums[m] + nums[r] < 0){
                 break;
             }
-            if (nums[l] + nums[m] + nums[r] === 0 && !finalArr.has(arr)){
-                console.log('set before adding: ', finalArr);
-                console.log(finalArr.has(arr));
-                finalArr.add(arr);
+            if (nums[l] + nums[m] + nums[r] === 0 && finalArr.indexOf(arr) === -1){
+                // console.log('set before adding: ', finalArr);
+                console.log('index & arr: ', finalArr.indexOf(arr), ' ', arr);
+                finalArr.push(arr)
             }
         }
     }
     
     console.log('set after loops: ', finalArr);
     
-    return Array.from(finalArr);
+    return finalArr;
 };
