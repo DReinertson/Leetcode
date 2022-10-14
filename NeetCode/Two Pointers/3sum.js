@@ -3,43 +3,49 @@
  * @return {number[][]}
  */
 
-//Could use 3 nested for loops, but that would be a O(n^3) time complexity. Not good.
-
-//Could use while loop with 3 pointers, move last pointer until it hits the end, then move the 2nd pointer until it hits the end, then the first pointer until the end. When first pointer hits nums.length-2, end while loop? 
+//I know there will be three pointers. One at the beginning, one in the middle and one at the end. 
+//I will require 2 for loops
+//Will sort the original array
+//Need logic to decide when to move each of the pointers. 
+//If nums[left-pointer] equals 0, you can stop the loops. Since the sum has to equal 0, it can't equal 0 if the left most pointer isn't negative. 
 var threeSum = function(nums) {
     
     let finalArr = new Set();
-    let first = 0; 
-    let second = 1;
-    let third = 2;
-    let length = nums.length;
+    //check length of array
     
-    while (first < second){
-        console.log('first: ', first, ' second: ', second, ' third: ', third);
-        console.log('nums[first]: ', nums[first], ' nums[second]: ', nums[second], ' nums[third]: ', nums[third])
-        let arr = [nums[first], nums[second], nums[third]];
-        if (arr[0] + arr[1] + arr[2] === 0 && !finalArr.has(arr)){
-            console.log('equals 0 & not in set. Adding to set');
-            finalArr.add(arr);
-        }
-        if(third < length-1){
-            console.log('adding 1 to third');
-            third += 1;
-            console.log('third added 1');
+    if (nums.length < 3){
+        return finalArr;
+    }
+    
+    //sort array
+    
+    nums.sort((a,b) => a-b);
+    console.log('nums: ', nums);
+    
+    for (let l = 0; l < nums.length; l++){
+        let m = l+1;
+        
+        if (nums[l] === 0 && nums[m] > 0){
+            return Array.from(finalArr);
         }
         
-        else if (second < length - 2){
-            console.log('adding 1 to second');
-            second += 1;
-            console.log('second added 1');
-        }
-        
-        else{
-            console.log('adding 1 to first');
-            first += 1;
-            console.log('first added 1');
+        for (let r = nums.length-1; r > m; r--){
+            let arr = [nums[l], nums[m], nums[r]];
+            if (nums[l] + nums[m] + nums[r] > 0){
+                continue;
+            }
+            if (nums[l] + nums[m] + nums[r] < 0){
+                break;
+            }
+            if (nums[l] + nums[m] + nums[r] === 0 && !finalArr.has(arr)){
+                console.log('set before adding: ', finalArr);
+                console.log(finalArr.has(arr));
+                finalArr.add(arr);
+            }
         }
     }
+    
+    console.log('set after loops: ', finalArr);
     
     return Array.from(finalArr);
 };
