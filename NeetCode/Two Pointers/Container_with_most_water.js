@@ -13,21 +13,35 @@ var maxArea = function(height) {
     let max = 0; 
     let current;
     let h;
+    let left = 0; 
+    let right = height.length-1;
     
-    for (let x = 0; x < height.length-1; x++){
-        for (let y = x+1; y < height.length; y++){
-            if (height[x] > height[y]){
-                h = height[y];
-            } else {
-                h = height[x];
-            }
-            
-            let diff = y-x;
-            
-            current = diff*h
-            
+    while (left < right){
+        let diff = right - left;
+        if (height[left] > height[right]){
+            h = height[right];
+            current = h*diff; 
             if (current > max){
                 max = current;
+            }
+            right--;
+        } else if (height[left] < height[right]){
+            h = height[left];
+            current = h*diff;
+            if(current > max){
+                max = current;
+            }
+            left++;
+        } else {
+            h = height[left];
+            current = h*diff;
+            if(current > max){
+                max = current;
+            }
+            if (height[left] > height[left+1]){
+                right--;
+            } else {
+                left++;
             }
         }
     }
@@ -36,3 +50,6 @@ var maxArea = function(height) {
     
     
 };
+
+Runtime: 123 ms, faster than 59.05% of JavaScript online submissions for Container With Most Water.
+Memory Usage: 49.8 MB, less than 37.58% of JavaScript online submissions for Container With Most Water.
