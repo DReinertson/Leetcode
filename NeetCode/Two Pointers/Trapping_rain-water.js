@@ -20,6 +20,7 @@ var trap = function(height) {
         let right = x+1;
         let collection; 
         let peak; 
+        let check = 0;
         console.log('x: ', x);
         console.log('height[x]: ', height[x]);
         console.log('going into loop: ', height[x], height[x-1]);
