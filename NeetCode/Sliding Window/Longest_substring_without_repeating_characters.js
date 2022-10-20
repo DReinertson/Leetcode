@@ -4,7 +4,7 @@
  */
 var lengthOfLongestSubstring = function(s) {
     
-    let tempArr = [];
+    let tempArr = new Set();
     let maxLength;
     let left = 0;
     let right = left + 1;
@@ -13,49 +13,46 @@ var lengthOfLongestSubstring = function(s) {
         return 0;
     }
     
-    tempArr.push(s[left]);
+    tempArr.add(s[left], 1);
     
-    maxLength = tempArr.length;
-    console.log('length: ', s.length);
+    console.log(!tempArr.has(s[left]));
+    
+    maxLength = tempArr.size;
     
     while (right < s.length){
         console.log('in while loop left: ', left, ' right: ', right);
-        console.log('tempArr at beginning of loop: ', tempArr);
         if (s[right] === s[right+1]){
-            console.log('sright = sright+1: ', s[right], ' ', s[right+1]);
-            if (tempArr.indexOf(s[right]) === -1){
-                tempArr.push(s[right]);                
+            console.log('right before the error: ', right, s[right]);
+            console.log('has: ', tempArr.has(s[right]));
+            if (!tempArr.has(s[right])){
+                tempArr.add(s[right], 1);
             }
             left = right+1;
             right = left+1;
-            if (tempArr.length > maxLength){
-                console.log('---------------');
-                console.log('in s[right] === s[right+1], changing max length');
-                console.log("maxLength before: ", maxLength, " tempArr: ", tempArr);
-                maxLength = tempArr.length;
+            if (tempArr.size > maxLength){
+                maxLength = tempArr.size;
             }
+            tempArr = new Set();
+            tempArr.add(s[left], 1);
             tempArr = [s[left]];
         }
-        else if (tempArr.indexOf(s[right]) === -1){
-            tempArr.push(s[right]);
+        else if (!tempArr.has(s[right])){
+            tempArr.add(s[right], 1);
             right++;
         } else{
-            if (tempArr.length > maxLength){
-                maxLength = tempArr.length;
+            if (tempArr.size > maxLength){
+                maxLength = tempArr.size;
             }
             
-            tempArr.shift();
+            tempArr.delete(s[right]);
             left++;
         }
     }
     
-    if (tempArr.length > maxLength){
-        maxLength = tempArr.length;
+    if (tempArr.size > maxLength){
+        maxLength = tempArr.size;
     }
     
     return maxLength;
     
 };
-
-Runtime: 163 ms, faster than 49.91% of JavaScript online submissions for Longest Substring Without Repeating Characters.
-Memory Usage: 45.2 MB, less than 88.19% of JavaScript online submissions for Longest Substring Without Repeating Characters.
