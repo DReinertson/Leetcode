@@ -1,58 +1,63 @@
 /**
  * @param {string} s
+ * @param {number} k
  * @return {number}
  */
-var lengthOfLongestSubstring = function(s) {
+
+//Use a while loop, sliding window problem. 
+//Could use nested for loops, but that defeats the purpose of doing sliding window problems
+
+
+var characterReplacement = function(s, k) {
     
-    let tempArr = new Set();
-    let maxLength;
+    
+    let max = 0;
+    let tempLength = 0;
+    let letterChange = 0; 
     let left = 0;
-    let right = left + 1;
+    let right = left+1;
+    let targetLetter = s[left];
     
-    if (s.length === 0){
-        return 0;
-    }
     
-    tempArr.add(s[left], 1);
     
-    console.log(!tempArr.has(s[left]));
-    
-    maxLength = tempArr.size;
-    
-    while (right < s.length){
-        console.log('in while loop left: ', left, ' right: ', right);
-        if (s[right] === s[right+1]){
-            console.log('right before the error: ', right, s[right]);
-            console.log('has: ', tempArr.has(s[right]));
-            if (!tempArr.has(s[right])){
-                tempArr.add(s[right], 1);
-            }
-            left = right+1;
-            right = left+1;
-            if (tempArr.size > maxLength){
-                maxLength = tempArr.size;
-            }
-            tempArr = new Set();
-            tempArr.add(s[left], 1);
-            tempArr = [s[left]];
+    while(right < s.length){
+        if (right === 1){
+            //initializing for s[left]
+            tempLength++;
         }
-        else if (!tempArr.has(s[right])){
-            tempArr.add(s[right], 1);
+        console.log("in while: ", left, ' ', right);
+        console.log('s[right]: ', s[left], ' ', s[right],);
+        
+        if (s[right] === targetLetter){
+            // console.log('in if statement 1');
+            tempLength++;
             right++;
-        } else{
-            if (tempArr.size > maxLength){
-                maxLength = tempArr.size;
+        } else if (s[right] !== targetLetter && letterChange < k){
+            tempLength++;
+            right++
+            letterChange++;
+        } else if (s[right] !== targetLetter && letterChange === k){
+            if (tempLength > max){
+                max = tempLength;
+                // console.log('changing max: ', max);
+                // console.log('-----------------------------');
             }
-            
-            tempArr.delete(s[right]);
             left++;
+            right = left + 1;
+            letterChange = 0;
+            tempLength = 1;
+            targetLetter = s[left];
+
         }
+        
     }
     
-    if (tempArr.size > maxLength){
-        maxLength = tempArr.size;
+    // console.log('out of while loop: ', tempLength, ' ', max);
+    
+    if (tempLength > max){
+        max = tempLength;
     }
     
-    return maxLength;
+    return max;
     
 };
