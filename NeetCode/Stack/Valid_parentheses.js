@@ -9,22 +9,16 @@
 
 var isValid = function(s) {
     
-    let map1 = new Map();
-    
     for (let x = 0; x < s.length; x++){
-        if (!map1.has(s[x])){
-            map1.set(s[x], 1);
-        } else{
-            map1.set(s[x], map1.get(s[x]) + 1);
+        if(s[x] === '(' && s[x+1] !== ')'){
+            return false;
+        } else if (s[x] === '[' && s[x+1] !== ']'){
+            return false;
+        } else if(s[x] === '{' && s[x+1] !== '}'){
+            return false;
         }
     }
     
-    console.log(map1);
-    
-    if(map1.get('(') === map1.get(')') && map1.get('{') === map1.get('}') && map1.get('[') === map1.get(']')){
-        return true;
-    } else{
-        return false;
-    }
+    return true;
     
 };
