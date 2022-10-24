@@ -9,16 +9,30 @@
 
 var isValid = function(s) {
     
-    for (let x = 0; x < s.length; x++){
-        if(s[x] === '(' && s[x+1] !== ')'){
-            return false;
-        } else if (s[x] === '[' && s[x+1] !== ']'){
-            return false;
-        } else if(s[x] === '{' && s[x+1] !== '}'){
+    let test = [];
+    let last;
+    for (let x = 0; x < s.length; x++){        
+        
+        last = test[test.length-1];
+        
+        
+        if (s[x] === '('){
+            test.push(')');
+        } else if (s[x] === '['){
+            test.push(']');
+        } else if (s[x] === '{'){
+            test.push('}');
+        } else if (s[x] === last){
+            test.pop();
+        } else {
             return false;
         }
     }
     
-    return true;
+    return test.length === 0;
+    
     
 };
+
+Runtime: 67 ms, faster than 94.94% of JavaScript online submissions for Valid Parentheses.
+Memory Usage: 42 MB, less than 91.71% of JavaScript online submissions for Valid Parentheses.
