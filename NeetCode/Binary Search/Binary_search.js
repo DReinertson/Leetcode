@@ -8,14 +8,6 @@ var search = function(nums, target) {
     let start = 0;
     let end = nums.length-1;
     
-    if (nums[start] === target){
-        return start;
-    }
-    
-    if (nums[start] === target){
-        return end;
-    }
-    
     while(start <= end){
         let mid = Math.floor((start + end) /2);
         
@@ -36,5 +28,5 @@ var search = function(nums, target) {
     
 };
 
-Runtime: 111 ms, faster than 39.41% of JavaScript online submissions for Binary Search.
-Memory Usage: 45.2 MB, less than 31.30% of JavaScript online submissions for Binary Search.
+Runtime: 59 ms, faster than 99.10% of JavaScript online submissions for Binary Search.
+Memory Usage: 44.3 MB, less than 98.91% of JavaScript online submissions for Binary Search.
