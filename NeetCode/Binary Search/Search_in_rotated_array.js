@@ -9,33 +9,36 @@
 
 var search = function(nums, target) {
     
-    let arr = [];
-    let shift; 
-    
-    for (let x = 0; x < nums.length; x++){
-        if (nums[x] > nums[x+1]){
-            shift = x+1;
-            arr = nums.slice(x+1).concat(nums.slice(0, x+1));
-        }
-    }
-    
-    console.log('arr: ', arr);
-    
+      
     let start = 0;
-    let end = arr.length-1;
+    let end = nums.length-1;
     
     while (start <= end){
-        let mid = (start + end) / 2;
+        let mid = Math.floor((start + end) / 2);
         
-        if (mid === target){
-            return mid + shift; 
-        } else if (mid > target){
-            end = mid -1;
-        } else if (mid < target){
-            start = mid + 1; 
+        if (nums[mid] === target){
+            return mid; 
+        }
+        
+        //check if it's in the left side
+        if (nums[start] <= nums[mid]){
+            if (nums[start] <= target && target <= nums[mid]){
+                end = mid -1;
+            } else{
+                start = mid + 1;
+            }
+        } else {
+            if(nums[mid] <= target && target <= nums[end]){
+                start = mid + 1;
+            } else {
+                end = mid -1;
+            }
         }
     }
     
     return -1;
     
 };
+
+Runtime: 96 ms, faster than 56.80% of JavaScript online submissions for Search in Rotated Sorted Array.
+Memory Usage: 42.1 MB, less than 54.50% of JavaScript online submissions for Search in Rotated Sorted Array.
