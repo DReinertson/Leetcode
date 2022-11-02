@@ -18,7 +18,7 @@ var addTwoNumbers = function(l1, l2) {
     let sum;
     // console.log('dummy: ', currentNode.next);
     
-    while (l1 || l2){
+    while (l1 && l2){
         if (overflow){
             console.log('l1 + l2 vals: ', l1.val, ' ', l2.val)
             sum = l1.val + l2.val + 1;
@@ -56,11 +56,15 @@ var addTwoNumbers = function(l1, l2) {
         console.log('before l2:');
         l2 = l2.next;
         console.log('before currentNode:');
-        currentNode = currentNode.next;
-        console.log('after currentNode:');
+        if (currentNode.next === undefined){
+            currentNode.next = null;
+        } else {
+            currentNode = currentNode.next;
+        }
+        console.log('after currentNode:', currentNode);
         console.log('--------------------------');
         
     }
     
-    return dummy.next;
+    console.log(dummy);
 };
