@@ -10,46 +10,33 @@
  * @param {number} n
  * @return {ListNode}
  */
-
-//Traverse down list, having a counter increment as you proceed (start counter at 1?). When getting to n, remove node, and set previousNodes.next to current.next
-
-
-
-//how do you detect the node from the end of the list? 
 var removeNthFromEnd = function(head, n) {
-    let currentNode = head;
-    let nextNode = null;
-    let previousNode = null;
-    let counter = 1;
-    let length = 0;
-    let target = n-1;
     
+//Create dummy list
     
+    let dum = new ListNode(null);
     
-    while (currentNode){
-        currentNode = currentNode.next;
-        length++;
-    }  
-    console.log('length: ', length);
+    dum.next = head;
     
-    currentNode = head;
+    //will create two pointers
     
-    while (currentNode){
-        console.log('counter: ', counter);
-        console.log('target: ', target);
-        if(counter === (length - target)){
-            if (counter === 1 && (length-target === 1)){
-                head = null;
-                break;
-            }else{
-                previousNode.next = currentNode.next;
-                return head;
-            }
-        } else {
-            previousNode = currentNode;
-            currentNode = currentNode.next;
-            counter++; 
-        }
+    let slow = dum;
+    let fast = head;
+    
+    for (let x = 0; x < n; x++){
+        fast = fast.next;
     }
-    return head;
+    
+    while (fast){
+        slow = slow.next;
+        fast = fast.next;
+    }
+    
+    slow.next = slow.next.next;
+    
+    return dum.next;
+    
 };
+
+Runtime: 108 ms, faster than 39.07% of JavaScript online submissions for Remove Nth Node From End of List.
+Memory Usage: 43.7 MB, less than 12.24% of JavaScript online submissions for Remove Nth Node From End of List.
