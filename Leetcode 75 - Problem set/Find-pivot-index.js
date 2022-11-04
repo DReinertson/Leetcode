@@ -8,7 +8,7 @@ var pivotIndex = function(nums) {
     let left = 1; 
     let right = nums.length - 2;
 
-    while (sumLeft !== sumRight){
+    while (left <= right){
         console.log('left | right: ', left, ' ', right);
         console.log(nums[left], ' ', nums[right]);
         console.log('sums: ', sumLeft, ' ', sumRight);
