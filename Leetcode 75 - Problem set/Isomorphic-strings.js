@@ -23,28 +23,16 @@ var isIsomorphic = function(s, t) {
     let map1 = new Map();
 
     for (let x = 0; x < s.length; x++){
-        if (!map1.has(t[x])){
-            map1.set(t[x], s[x]);
+        if (!map1.has(s[x])){
+            map1.set(s[x], t[x]);
+        } else {
+            if (map1.get(s[x]) !== t[x]){
+                return false;
+            }
         }
     }
 
-    console.log('map1: ', map1);
-
-    for (let y = 0; y < t.length; y++){
-        console.log('t before: ', t);
-        t = t.replace(t[y], map1.get(t[y]));
-        console.log('t after: ', t);
-        console.log('----------------');
-    }
-
-    console.log('t final: ', t)
-    console.log('s: ', s);
-
-    if (s === t){
-        return true;
-    } else {
-        return false;
-    }
+    return true;
 
     
 };
