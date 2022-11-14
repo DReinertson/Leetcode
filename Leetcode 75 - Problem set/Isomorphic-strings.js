@@ -32,7 +32,16 @@ var isIsomorphic = function(s, t) {
         }
     }
 
-    return true;
+    let compare = new Set([...map1.values()]);
+
+    if (compare.size === map1.size){
+        return true;
+    } else{
+        return false;
+    }
 
     
 };
+
+Runtime 116 ms Beats 63.92%
+Memory 42.8 MB Beats 70.72%
