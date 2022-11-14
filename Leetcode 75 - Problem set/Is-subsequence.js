@@ -17,5 +17,5 @@ var isSubsequence = function(s, t) {
     
 };
 
-Runtime 117 ms Beats 12.60%
-Memory 42 MB Beats 55.78%
+Runtime 84 ms Beats 75.72%
+Memory 41.6 MB Beats 88.88%
