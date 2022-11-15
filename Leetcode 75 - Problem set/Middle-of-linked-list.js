@@ -14,31 +14,11 @@
 
 
 var middleNode = function(head) {
-    let temp = head;
-    let length = 0;
-    let count = 1;
-    let temp2 = head;
+    let slow = fast = head;
 
-    while (temp){
-        length++;
-        temp = temp.next;
+    while (fast && fast.next){
+        slow = slow.next;
+        fast = fast.next.next;
     }
-
-    let mid = Math.ceil(length/2);
-
-    console.log('length: ', length);
-    console.log('mid: ', Math.ceil(length/2));
-    while(count !== mid){
-        count++;
-        temp2 = temp2.next;
-    }
-
-    if (length % 2 === 0){
-        return temp2.next;
-    } else{
-        return temp2;
-    }
+    return slow;
 };
-
-Runtime 92 ms Beats 56.79%
-Memory 42.5 MB Beats 6.86%
