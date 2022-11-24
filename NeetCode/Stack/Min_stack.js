@@ -1,8 +1,7 @@
 
 var MinStack = function() {
-    this.arr = [];
-    this.low = [];
-    
+    this.minStack = [];
+    this.mainStack = [];
 };
 
 /** 
@@ -10,36 +9,39 @@ var MinStack = function() {
  * @return {void}
  */
 MinStack.prototype.push = function(val) {
-    this.arr.push(val);
-    
-    let lastMin = this.low[this.low.length-1];
-    if (lastMin === undefined || val < lastMin){
-        this.low.push(val);
+    this.mainStack.push(val);
+    if(val > this.minStack[this.minStack.length - 1] && this.minStack.length !== 0){
+        this.minStack.push(this.minStack[this.minStack.length-1]);
     } else{
-        this.low.push(lastMin)
+        this.minStack.push(val);
     }
+
+    console.log('minStack: ', this.minStack);
+    console.log('mainStack: ', this.mainStack);
+    
 };
 
 /**
  * @return {void}
  */
 MinStack.prototype.pop = function() {
-    this.arr.pop();
-    this.low.pop();
+    this.mainStack.pop();
+    this.minStack.pop();
+    
 };
 
 /**
  * @return {number}
  */
 MinStack.prototype.top = function() {
-    return this.arr[this.arr.length-1];
+    return this.mainStack[this.mainStack.length-1];
 };
 
 /**
  * @return {number}
  */
 MinStack.prototype.getMin = function() {
-    return this.low[this.low.length-1];
+    return this.minStack[this.minStack.length-1];
 };
 
 /** 
@@ -50,6 +52,3 @@ MinStack.prototype.getMin = function() {
  * var param_3 = obj.top()
  * var param_4 = obj.getMin()
  */
-
-Runtime: 163 ms, faster than 72.18% of JavaScript online submissions for Min Stack.
-Memory Usage: 50.4 MB, less than 14.01% of JavaScript online submissions for Min Stack.
