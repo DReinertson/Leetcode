@@ -3,36 +3,49 @@
  * @return {boolean}
  */
 
-//Can i just count open and closed and make sure there are the same number of them? can I assume that an open will always occur first? Counting would only be possible if that assumption can be made. Cannot assume this
-
-//Have to account for alternating characters '([])' should be false. 
 
 var isValid = function(s) {
-    
-    let test = [];
-    let last;
-    for (let x = 0; x < s.length; x++){        
-        
-        last = test[test.length-1];
-        
-        
-        if (s[x] === '('){
-            test.push(')');
-        } else if (s[x] === '['){
-            test.push(']');
-        } else if (s[x] === '{'){
-            test.push('}');
-        } else if (s[x] === last){
-            test.pop();
-        } else {
-            return false;
+    let check = [];
+
+    for (let x = 0; x < s.length; x++){
+        if (s[x] === ')'){
+            if (check[check.length - 1] === '('){
+                check.pop();
+            } else{
+                return false;
+            }
+        }
+
+        else if (s[x] === '}'){
+            if (check[check.length - 1] === '{'){
+                check.pop();
+            } else{
+                return false;
+            }
+        }
+
+        else if (s[x] === ']'){
+            if (check[check.length - 1] === '['){
+                check.pop();
+            } else{
+                return false;
+            }
+        }
+
+        else{
+            check.push(s[x]);
         }
     }
-    
-    return test.length === 0;
-    
+
+    if (check.length === 0){
+        return true;
+    } else{
+        return false;
+    }
     
 };
 
-Runtime: 67 ms, faster than 94.94% of JavaScript online submissions for Valid Parentheses.
-Memory Usage: 42 MB, less than 91.71% of JavaScript online submissions for Valid Parentheses.
+Runtime 126 ms Beats 15.67%
+Memory 42 MB Beats 91.68%
+    
+https://leetcode.com/problems/valid-parentheses/submissions/849272637/
